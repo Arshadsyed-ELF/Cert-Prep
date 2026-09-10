@@ -1,0 +1,15 @@
+module.exports = {
+  success: (res, message = 'Request was successful', data = null, statusCode = 200) => {
+    return res.status(statusCode).json({
+      success: true,
+      message,
+      data,
+    });
+  },
+  error: (res, message = 'An error occurred', statusCode = 400) => {
+    return res.status(statusCode).json({
+      success: false,
+      message,
+    });
+  },
+};
