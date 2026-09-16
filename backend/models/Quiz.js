@@ -9,8 +9,9 @@ const quizSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  certificationLevel: {
+  difficulty: {
     type: String,
+    enum: ['Easy', 'Medium', 'Hard'],
     required: true,
   },
   description: {

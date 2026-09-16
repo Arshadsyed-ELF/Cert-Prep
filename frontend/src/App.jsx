@@ -12,6 +12,7 @@ import ResultsPage from './pages/ResultsPage';
 import ReadinessPage from './pages/ReadinessPage';
 import AttemptHistoryPage from './pages/AttemptHistoryPage';
 import Profile from './pages/Profile';
+import LandingPage from './pages/LandingPage';
 import NotFound from './pages/NotFound';
 import UserLayout from './layouts/UserLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -26,6 +27,9 @@ const App = () => {
         <AuthProvider>
         <Switch>
           <ProtectedRoute exact path="/admin" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
+          <ProtectedRoute exact path="/admin/overview" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
+          <ProtectedRoute exact path="/admin/assessments" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
+          <ProtectedRoute exact path="/admin/users" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
@@ -36,7 +40,7 @@ const App = () => {
           <ProtectedRoute path="/readiness" component={ReadinessPage} layout={UserLayout} userOnly={true} />
           <ProtectedRoute path="/history" component={AttemptHistoryPage} layout={UserLayout} userOnly={true} />
           <ProtectedRoute path="/profile" component={Profile} layout={UserLayout} userOnly={true} />
-          <Route path="/" exact render={() => <Login />} />
+          <Route path="/" exact component={LandingPage} />
           <Route path="*" component={NotFound} />
         </Switch>
         </AuthProvider>

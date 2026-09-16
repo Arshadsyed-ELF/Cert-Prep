@@ -69,9 +69,15 @@ Ensure you have a MongoDB instance running and update the connection string in t
 ## Seed Data
 To populate the database with initial quiz data, run the seed script provided in the `services/seedService.js`.
 
-## Admin Login Credentials
-- **Email**: Admin@thesmartbridge.com
-- **Password**: Admin123@
+## Create an Admin
+Admin credentials are stored as a hashed `User` document in MongoDB. After configuring the backend database, run:
+
+```
+cd backend
+npm run create-admin
+```
+
+The command prompts for the admin name, email, and password. Use those values on the admin login page.
 
 ## API Documentation
 Refer to the backend `README.md` for detailed API endpoints and usage.

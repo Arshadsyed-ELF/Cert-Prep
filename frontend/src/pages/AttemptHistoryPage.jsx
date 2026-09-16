@@ -33,15 +33,15 @@ const AttemptHistoryPage = () => {
             {attempts.length === 0 ? (
                 <p>You haven't attempted any quizzes yet.</p>
             ) : (
-                <div className="overflow-x-auto rounded-lg border border-gray-300 bg-white"><table className="min-w-[48rem] w-full">
+                <div className="overflow-x-auto rounded-lg border border-gray-300 bg-white "><table className="min-w-[48rem] w-full">
                     <thead>
                         <tr>
-                            <th className="border px-4 py-2">Quiz Title</th>
-                            <th className="border px-4 py-2">Score</th>
-                            <th className="border px-4 py-2">Percentage</th>
-                            <th className="border px-4 py-2">Status</th>
-                            <th className="border px-4 py-2">Date</th>
-                            <th className="border px-4 py-2">Review</th>
+                            <th className="text-blue-700 border px-4 py-2">Quiz Title</th>
+                            <th className="text-blue-700 border px-4 py-2">Score</th>
+                            <th className="text-blue-700 border px-4 py-2">Percentage</th>
+                            <th className="text-blue-700 border px-4 py-2">Status</th>
+                            <th className="text-blue-700 border px-4 py-2">Date</th>
+                            <th className="text-blue-700 border px-4 py-2">Review</th>
                         </tr>
                     </thead>
                     <tbody>

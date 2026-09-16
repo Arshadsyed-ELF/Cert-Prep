@@ -3,9 +3,6 @@ const jwt = require('../utils/jwt');
 const bcrypt = require('bcrypt');
 const apiResponse = require('../utils/apiResponse');
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'Admin@thesmartbridge.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin123@';
-
 exports.signup = async (req, res) => {
     try {
         const { name, email, password, confirmPassword } = req.body;
@@ -91,17 +88,20 @@ exports.adminLogin = async (req, res) => {
             return apiResponse.error(res, 'Email and password are required', 400);
         }
 
-        if (email !== ADMIN_EMAIL || password !== ADMIN_PASSWORD) {
-            return apiResponse.error(res, 'Invalid admin credentialsss', 401);
+        const normalizedEmail = email.trim().toLowerCase();
+        const admin = await User.findOne({ email: normalizedEmail, role: 'admin' });
+        if (!admin || !(await bcrypt.compare(password, admin.password))) {
+            return apiResponse.error(res, 'Invalid admin credentials', 401);
         }
 
-        const token = jwt.generateToken('admin', 'admin');
+        const token = jwt.generateToken(admin._id, admin.role);
         return apiResponse.success(res, 'Admin login successful', {
             token,
             user: {
-                id: 'admin',
-                email: ADMIN_EMAIL,
-                role: 'admin',
+                id: admin._id,
+                name: admin.name,
+                email: admin.email,
+                role: admin.role,
             },
         });
     } catch (error) {
@@ -116,10 +116,16 @@ exports.getCurrentUser = async (req, res) => {
         }
 
         if (req.user.role === 'admin') {
+            const admin = await User.findOne({ _id: req.user.id, role: 'admin' }).select('-password');
+            if (!admin) {
+                return apiResponse.error(res, 'Admin user not found', 404);
+            }
+
             return apiResponse.success(res, 'Admin user retrieved successfully', {
-                id: req.user.id,
-                role: 'admin',
-                email: ADMIN_EMAIL,
+                id: admin._id,
+                name: admin.name,
+                role: admin.role,
+                email: admin.email,
             });
         }
 

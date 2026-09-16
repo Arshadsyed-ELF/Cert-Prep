@@ -26,30 +26,31 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-900 px-4">
-            <form onSubmit={handleSubmit} className="w-full max-w-md rounded-lg bg-white p-8 shadow-xl">
-                <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-blue-600">Cert-Prep</p>
-                <h1 className="mb-2 text-3xl font-bold text-gray-900">Admin sign in</h1>
-                <p className="mb-6 text-sm text-gray-500">Manage quizzes and review your certification platform.</p>
-                {error && <p className="mb-4 rounded bg-red-50 p-3 text-sm text-red-700">{error}</p>}
-                <label className="mb-4 block text-sm font-medium text-gray-700">
+        <div className="auth-page admin-auth flex min-h-screen items-center justify-center px-4">
+            <form onSubmit={handleSubmit} className="auth-card w-full max-w-md p-8">
+                <Link to="/" className="auth-brand"><span>⌁</span> certprep</Link><p className="auth-kicker">CONTROL CENTER</p>
+                <h1>Admin sign in</h1><p className="auth-subtitle">Manage assessments and guide every learner.</p>
+                {error && <p className="auth-error">{error}</p>}
+                <label className="auth-label mb-4 block">
                     Email
                     <input
+                        id="admin-email"
                         type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
-                        className="mt-2 w-full rounded border px-3 py-2"
+                        className="auth-input mt-2 w-full px-4 py-3"
                         autoComplete="username"
                         required
                     />
                 </label>
-                <label className="mb-6 block text-sm font-medium text-gray-700">
+                <label className="auth-label mb-6 block">
                     Password
                     <input
+                        id="admin-password"
                         type="password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                        className="mt-2 w-full rounded border px-3 py-2"
+                        className="auth-input mt-2 w-full px-4 py-3"
                         autoComplete="current-password"
                         required
                     />
@@ -57,11 +58,11 @@ const AdminLogin = () => {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full rounded bg-gray-900 py-2 font-semibold text-white hover:bg-gray-700 disabled:bg-gray-400"
+                    className="auth-submit w-full py-3 disabled:opacity-50"
                 >
                     {loading ? 'Signing in...' : 'Sign in as admin'}
                 </button>
-                <Link to="/login" className="mt-4 block text-center text-sm text-blue-600 hover:underline">
+                <Link to="/login" className="auth-switch mt-5 block text-center text-sm">
                     Return to user login
                 </Link>
             </form>

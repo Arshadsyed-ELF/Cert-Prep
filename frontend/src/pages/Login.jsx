@@ -19,41 +19,49 @@ const Login = () => {
         } catch (err) {
             setError(err.response?.data?.message || 'Invalid email or password');
         }
+        // Admin sign inAdmin sign inAdmin sign in
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-8 sm:px-6">
-            <form onSubmit={handleSubmit} className="w-full max-w-md rounded bg-white p-5 shadow-md sm:p-6">
-                <h2 className="text-2xl font-bold mb-4">Login</h2>
-                {error && <p className="text-red-500 mb-4">{error}</p>}
+        <div className="auth-page flex min-h-screen items-center justify-center px-4 py-8 sm:px-6">
+            <form onSubmit={handleSubmit} className="auth-card w-full max-w-md p-6 sm:p-9">
+                <Link to="/" className="auth-brand"><span>⌁</span> certprep</Link>
+                <p className="auth-kicker">WELCOME BACK</p>
+                <h1>Sign in to continue.</h1>
+                <p className="auth-subtitle">Pick up your certification preparation right where you left off.</p>
+                {error && <p className="auth-error" role="alert">{error}</p>}
                 <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Email</label>
+                    <label className="auth-label" htmlFor="login-email">Email address</label>
                     <input
+                        id="login-email"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="border rounded w-full py-2 px-3"
+                        className="auth-input w-full px-4 py-3"
+                        autoComplete="username"
                         required
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Password</label>
+                    <label className="auth-label" htmlFor="login-password">Password</label>
                     <input
+                        id="login-password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="border rounded w-full py-2 px-3"
+                        className="auth-input w-full px-4 py-3"
+                        autoComplete="current-password"
                         required
                     />
                 </div>
-                <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full mb-3">
-                    Login
+                <button type="submit" className="auth-submit w-full py-3">
+                    Sign in <span>→</span>
                 </button>
-                <p className="text-center text-sm">
-                    Need an account? <Link to="/signup" className="text-blue-600">Sign Up</Link>
+                <p className="auth-footer text-center mt-3 text-sm">
+                    Need an account? <Link to="/signup">Create one</Link>
                 </p>
-                <p className="mt-3 text-center text-sm">
-                    <Link to="/admin/login" className="text-gray-600 hover:text-gray-900">Admin sign in</Link>
+                <p className="auth-footer mt-3 text-center text-sm">
+                    <Link to="/admin/login">Admin sign in</Link>
                 </p>
             </form>
         </div>

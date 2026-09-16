@@ -27,7 +27,7 @@ const validateLogin = [
 const validateQuizCreation = [
   body('title').notEmpty().withMessage('Quiz title is required.'),
   body('certificationType').notEmpty().withMessage('Certification type is required.'),
-  body('certificationLevel').notEmpty().withMessage('Certification level is required.'),
+  body('difficulty').isIn(['Easy', 'Medium', 'Hard']).withMessage('Difficulty must be Easy, Medium, or Hard.'),
   body('description').notEmpty().withMessage('Description is required.'),
   body('duration').isNumeric().withMessage('Duration must be a number.'),
   body('passingPercentage').isNumeric().withMessage('Passing percentage must be a number.'),

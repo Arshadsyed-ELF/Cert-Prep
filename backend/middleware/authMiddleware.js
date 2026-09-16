@@ -12,16 +12,8 @@ const authMiddleware = async (req, res, next) => {
         const token = authHeader.replace('Bearer ', '');
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'cert-prep-dev-secret');
 
-        if (decoded.role === 'admin') {
-            req.user = {
-                id: decoded.userId,
-                role: decoded.role,
-            };
-            return next();
-        }
-
         const user = await User.findById(decoded.userId).select('-password');
-        if (!user) {
+        if (!user || user.role !== decoded.role) {
             return res.status(401).json({ success: false, message: 'Invalid token.' });
         }
 

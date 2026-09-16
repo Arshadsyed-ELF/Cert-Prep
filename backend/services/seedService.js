@@ -6,7 +6,7 @@ const seedQuizzes = async () => {
         {
             title: 'MongoDB Beginner',
             certificationType: 'MongoDB',
-            certificationLevel: 'Beginner',
+            difficulty: 'Easy',
             description: 'Basic questions for MongoDB certification preparation.',
             duration: 30,
             passingPercentage: 70,
@@ -26,7 +26,7 @@ const seedQuizzes = async () => {
         {
             title: 'MongoDB Intermediate',
             certificationType: 'MongoDB',
-            certificationLevel: 'Intermediate',
+            difficulty: 'Medium',
             description: 'Intermediate questions for MongoDB certification preparation.',
             duration: 45,
             passingPercentage: 75,
@@ -46,7 +46,7 @@ const seedQuizzes = async () => {
         {
             title: 'MongoDB Advanced',
             certificationType: 'MongoDB',
-            certificationLevel: 'Advanced',
+            difficulty: 'Hard',
             description: 'Advanced questions for MongoDB certification preparation.',
             duration: 60,
             passingPercentage: 80,

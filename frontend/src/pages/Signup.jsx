@@ -41,63 +41,69 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-8 sm:px-6">
-            <form onSubmit={handleSubmit} className="w-full max-w-md rounded bg-white p-5 shadow-md sm:p-6">
-                <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-                {error && <p className="text-red-500 mb-4">{error}</p>}
+        <div className="auth-page flex min-h-screen items-center justify-center px-4 py-8 sm:px-6">
+            <form onSubmit={handleSubmit} className="auth-card w-full max-w-md p-6 sm:p-9">
+                <Link to="/" className="auth-brand"><span>⌁</span> certprep</Link>
+                <p className="auth-kicker">YOUR NEXT CHAPTER</p><h2>Let’s get you prepared.</h2><p className="auth-subtitle">Create your free learning space in under a minute.</p>
+                {error && <p className="auth-error">{error}</p>}
                 <div className="mb-4">
-                    <label className="block mb-2" htmlFor="name">Name</label>
+                    <label className="auth-label" htmlFor="name">Your name</label>
                     <input
+                        id="name"
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="border rounded w-full py-2 px-3"
+                        className="auth-input w-full py-3 px-4"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2" htmlFor="email">Email</label>
+                    <label className="auth-label" htmlFor="email">Email address</label>
                     <input
+                        id="email"
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="border rounded w-full py-2 px-3"
+                        className="auth-input w-full py-3 px-4"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2" htmlFor="password">Password</label>
+                    <label className="auth-label" htmlFor="password">Create a password</label>
                     <input
+                        id="password"
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
                         required
-                        className="border rounded w-full py-2 px-3"
+                        className="auth-input w-full py-3 px-4"
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2" htmlFor="confirmPassword">Confirm Password</label>
+                    <label className="auth-label" htmlFor="confirmPassword">Confirm password</label>
                     <input
+                        id="confirmPassword"
                         type="password"
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         required
-                        className="border rounded w-full py-2 px-3"
+                        className="auth-input w-full py-3 px-4"
+                        autoComplete="new-password"
                     />
                 </div>
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-2 rounded ${loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-700'} text-white`}
+                    className="auth-submit w-full py-3"
                 >
-                    {loading ? 'Signing Up...' : 'Sign Up'}
+                    {loading ? 'Creating your space...' : <>Create my account <span>→</span></>}
                 </button>
                 <p className="text-center mt-3 text-sm">
-                    Already have an account? <Link to="/login" className="text-blue-600">Login</Link>
+                    Already learning with us? <Link to="/login">Log in</Link>
                 </p>
             </form>
         </div>

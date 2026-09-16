@@ -52,6 +52,8 @@ backend/
    npm run dev
    ```
 
+To create an admin account, run `npm run create-admin` and enter the credentials when prompted. Admin passwords are hashed before being stored in MongoDB.
+
 ## API Endpoints
 
 ### Authentication
