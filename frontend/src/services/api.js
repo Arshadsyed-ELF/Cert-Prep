@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // baseURL: import.meta.env.VITE_API_URL,
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://cert-prep-m91f.onrender.com/api',
 });
 
 // Request interceptor to add JWT token to headers
