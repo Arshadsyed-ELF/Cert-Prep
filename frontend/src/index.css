@@ -246,16 +246,16 @@ html.dark .explore-card { background: #1e293b; border-color: #334155; }
 .quiz-attempt-layout,
 .quiz-bottom-bar {
   margin-inline: auto;
-  max-width: 980px;
+  max-width: 1200px;
 }
 
 .quiz-attempt-layout {
   align-items: start;
   display: grid;
   gap: 0.8rem;
-  grid-template-columns: 11rem minmax(0, 1fr);
+  grid-template-columns: 14rem minmax(0, 1fr);
   margin-inline: auto;
-  max-width: 980px;
+  max-width: 1200px;
 }
 
 .quiz-navigator-panel {
@@ -290,7 +290,7 @@ html.dark .explore-card { background: #1e293b; border-color: #334155; }
 
 .quiz-frame {
     width: 100%;
-    max-width: 800px;
+  max-width: none;
     margin: 0 auto;
     padding: 20px 24px;
     border-radius: 12px;
@@ -570,6 +570,11 @@ body,.landing-page,.app-shell,.auth-page,.quiz-arena { background:var(--page) !i
 .landing-nav-cta,.landing-primary-button,.auth-submit { background:var(--coral) !important; }.landing-nav-cta:hover,.landing-primary-button:hover,.auth-submit:hover:not(:disabled) { background:var(--coral-hover) !important; }.user-shell main .bg-blue-900,.user-shell main .bg-blue-600,.admin-shell main .bg-blue-900,.admin-shell main .bg-blue-600 { background:var(--primary) !important; }.user-shell main .bg-blue-900:hover,.user-shell main .bg-blue-600:hover,.admin-shell main .bg-blue-900:hover,.admin-shell main .bg-blue-600:hover { background:var(--primary-hover) !important; }.landing-progress,.quiz-progress-track { background:var(--track) !important; }.landing-progress i,.quiz-progress-fill,.quiz-primary-button { background:linear-gradient(90deg,var(--primary),var(--neo-cyan)) !important; }.landing-options button.selected,.quiz-option.is-selected,.quiz-number-nav button.is-current { background:var(--success-bg) !important; border-color:var(--success) !important; color:var(--text-primary) !important; }.landing-options button.selected span { background:var(--success) !important; }
 .user-shell main .bg-emerald-50 { background:var(--success-bg) !important; }.user-shell main .text-emerald-700 { color:var(--success) !important; }.user-shell main .bg-red-50 { background:var(--error-bg) !important; }.user-shell main .text-red-600,.user-shell main .text-red-700 { color:var(--error) !important; }.user-shell main .bg-amber-50,.user-shell main .bg-orange-50 { background:color-mix(in srgb,var(--warning) 14%,var(--surface)) !important; }.user-shell main .text-amber-700,.user-shell main .text-orange-700 { color:var(--warning) !important; }.user-shell main .bg-emerald-500 { background:var(--success) !important; }.user-shell main .bg-amber-500,.user-shell main .bg-orange-500 { background:var(--warning) !important; }.user-shell main .bg-gray-400 { background:var(--text-muted) !important; }.user-shell main .bg-white,.user-shell main .bg-gray-50,.user-shell main .bg-gray-100,.admin-shell main .bg-white,.admin-shell main .bg-gray-50,.admin-shell main .bg-gray-100 { background:var(--surface) !important; border-color:var(--border) !important; }.user-shell main .text-gray-900,.user-shell main .text-gray-800,.admin-shell main .text-gray-900,.admin-shell main .text-gray-800 { color:var(--text-primary) !important; }.user-shell main .text-gray-700,.user-shell main .text-gray-600,.admin-shell main .text-gray-700,.admin-shell main .text-gray-600 { color:var(--text-secondary) !important; }.user-shell main .text-gray-500,.admin-shell main .text-gray-500 { color:var(--text-muted) !important; }.user-shell main .border-gray-200,.user-shell main .border-gray-300,.admin-shell main .border-gray-200,.admin-shell main .border-gray-300 { border-color:var(--border) !important; }
 html.dark .landing-page::before,html.dark .landing-page::after,html.dark .app-shell::before,html.dark .auth-page::before,html.dark .quiz-arena::before { background:radial-gradient(circle at 4% 5%,rgba(139,125,250,.12),transparent 22rem),radial-gradient(circle at 95% 15%,rgba(255,122,84,.1),transparent 22rem) !important; } html.dark .landing-card,html.dark .auth-card,html.dark .quiz-frame,html.dark .quiz-navigator-panel { box-shadow:10px 10px 22px #090a11,-8px -8px 18px #202331 !important; } html.dark .landing-options button,html.dark .quiz-option,html.dark .quiz-number-nav button,html.dark .auth-input { box-shadow:inset 3px 3px 7px #090a11,inset -3px -3px 7px #202331 !important; }
+
+.quiz-navigator-panel .quiz-number-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; }
+.quiz-navigator-panel .quiz-number-nav button { font-size: 0.75rem; height: 2rem; }
+.quiz-navigator-panel .quiz-number-nav button.is-current { font-size: 0.9rem; }
+.quiz-question-title { font-size: clamp(1rem, 1.35vw, 1.35rem); line-height: 1.45; max-width: 58rem; overflow-wrap: anywhere; }
 
 /* Refined elevation: no white halo around dark-mode cards. */
 html:not(.dark) .landing-card,
