@@ -814,7 +814,7 @@ const AdminDashboard = () => {
                 Last 7 days
               </span>
             </div>
-            <div className="flex h-56 items-end gap-3 border-b border-gray-100 pb-2">
+            <div className="admin-attempt-chart flex h-56 items-end gap-3 border-b border-gray-100 pb-2">
               {chartValues.length ? (
                 chartValues.map((item) => (
                   <div
@@ -823,7 +823,7 @@ const AdminDashboard = () => {
                   >
                     <span className="text-xs text-gray-500">{item.count}</span>
                     <div
-                      className="w-full max-w-10 rounded-t bg-blue-600"
+                      className="admin-attempt-bar w-full max-w-10 rounded-t bg-blue-600"
                       style={{
                         height: `${Math.max((item.count / maxAttempts) * 85, 5)}%`,
                       }}
@@ -1235,21 +1235,46 @@ const AdminDashboard = () => {
                     <tr>
                       <th className="pb-3">Name</th>
                       <th className="pb-3">Email</th>
+                      <th className="pb-3">Readiness</th>
+                      <th className="pb-3">Attempts</th>
+                      <th className="pb-3">Average</th>
                       <th className="pb-3">Joined</th>
                       <th className="pb-3 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {paginatedUsers.map((user) => (
-                      <tr key={getId(user)} className="border-b last:border-0">
+                      <React.Fragment key={getId(user)}>
+                      <tr className="border-b last:border-0">
                         <td className="py-3 font-medium text-gray-800">
                           {user.name}
                         </td>
                         <td className="py-3 text-gray-500">{user.email}</td>
+                        <td className="py-3">
+                          <span className="font-semibold text-blue-700">
+                            {user.readiness?.readiness || "Not Assessed"}
+                          </span>
+                          <span className="block text-xs text-gray-500">
+                            Score: {user.readiness?.score ?? 0}%
+                          </span>
+                        </td>
+                        <td className="py-3 text-gray-500">
+                          {user.readiness?.attempts ?? user.attempts?.length ?? 0}
+                        </td>
+                        <td className="py-3 text-gray-500">
+                          {user.readiness?.averageScore ?? 0}%
+                        </td>
                         <td className="py-3 text-gray-500">
                           {new Date(user.createdAt).toLocaleDateString()}
                         </td>
                         <td className="py-3 text-right">
+                          <button
+                            type="button"
+                            onClick={() => history.push(`/admin/users/${getId(user)}/readiness`)}
+                            className="mr-3 font-semibold text-blue-700 hover:underline"
+                          >
+                            View stats
+                          </button>
                           <button
                             type="button"
                             onClick={() => handleDeleteUser(user)}
@@ -1259,6 +1284,7 @@ const AdminDashboard = () => {
                           </button>
                         </td>
                       </tr>
+                      </React.Fragment>
                     ))}
                   </tbody>
                 </table>

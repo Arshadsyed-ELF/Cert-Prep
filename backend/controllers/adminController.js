@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Quiz = require('../models/Quiz');
 const QuizAttempt = require('../models/QuizAttempt');
 const apiResponse = require('../utils/apiResponse');
+const { summarizeAttempts } = require('../services/readinessService');
 
 exports.getOverview = async (req, res) => {
     try {
@@ -49,9 +50,66 @@ exports.getOverview = async (req, res) => {
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find({ role: 'user' }).select('-password').sort({ createdAt: -1 });
-        return apiResponse.success(res, 'Users retrieved successfully', users);
+        const userIds = users.map((user) => user._id);
+        const attempts = await QuizAttempt.find({ userId: { $in: userIds } })
+            .populate('quizId', 'title certificationType')
+            .sort({ createdAt: -1 });
+        const attemptsByUser = attempts.reduce((grouped, attempt) => {
+            const userId = String(attempt.userId);
+            if (!grouped[userId]) grouped[userId] = [];
+            grouped[userId].push(attempt);
+            return grouped;
+        }, {});
+        const usersWithProgress = users.map((user) => {
+            const userAttempts = attemptsByUser[String(user._id)] || [];
+            return {
+                ...user.toObject(),
+                readiness: summarizeAttempts(userAttempts),
+                attempts: userAttempts.map((attempt) => ({
+                    _id: attempt._id,
+                    quiz: attempt.quizId ? {
+                        title: attempt.quizId.title,
+                        certificationType: attempt.quizId.certificationType,
+                    } : null,
+                    score: attempt.score,
+                    percentage: attempt.percentage,
+                    passed: attempt.passed,
+                    completedAt: attempt.completedAt || attempt.createdAt,
+                })),
+            };
+        });
+        return apiResponse.success(res, 'Users retrieved successfully', usersWithProgress);
     } catch (error) {
         return apiResponse.error(res, error.message || 'Unable to load users', 500);
+    }
+};
+
+exports.getUserReadiness = async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id, role: 'user' }).select('-password');
+        if (!user) return apiResponse.error(res, 'User not found', 404);
+
+        const attempts = await QuizAttempt.find({ userId: user._id })
+            .populate('quizId', 'title certificationType')
+            .sort({ createdAt: -1 });
+
+        return apiResponse.success(res, 'User readiness retrieved successfully', {
+            user,
+            readiness: summarizeAttempts(attempts),
+            attempts: attempts.map((attempt) => ({
+                _id: attempt._id,
+                quiz: attempt.quizId ? {
+                    title: attempt.quizId.title,
+                    certificationType: attempt.quizId.certificationType,
+                } : null,
+                score: attempt.score,
+                percentage: attempt.percentage,
+                passed: attempt.passed,
+                completedAt: attempt.completedAt || attempt.createdAt,
+            })),
+        });
+    } catch (error) {
+        return apiResponse.error(res, error.message || 'Unable to load user readiness', 500);
     }
 };
 

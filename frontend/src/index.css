@@ -829,3 +829,823 @@ html.dark .question-modal { box-shadow: 0 18px 42px rgba(0, 0, 0, .5) !important
   .question-option-row { align-items: stretch; }
   .question-option-row input { flex: 1 1 auto; }
 }
+
+/* Consistent neumorphic interaction states. */
+button,
+a,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled),
+.landing-page a,
+.app-shell a,
+.quiz-arena a,
+.auth-page a,
+summary {
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.landing-page button:not(:disabled),
+.app-shell button:not(:disabled),
+.quiz-arena button:not(:disabled),
+.auth-page button:not(:disabled),
+.landing-page a,
+.app-shell a,
+.quiz-arena a,
+.auth-page a,
+summary {
+  position: relative;
+}
+
+.landing-page button:not(:disabled):hover,
+.app-shell button:not(:disabled):hover,
+.quiz-arena button:not(:disabled):hover,
+.auth-page button:not(:disabled):hover,
+.landing-page a:hover,
+.app-shell a:hover,
+.quiz-arena a:hover,
+.auth-page a:hover,
+summary:hover {
+  transform: translateY(-2px);
+}
+
+.landing-page button:not(:disabled):active,
+.app-shell button:not(:disabled):active,
+.quiz-arena button:not(:disabled):active,
+.auth-page button:not(:disabled):active,
+.landing-page a:active,
+.app-shell a:active,
+.quiz-arena a:active,
+.auth-page a:active,
+summary:active {
+  transform: translateY(0);
+}
+
+/* Raised controls use the same light/dark surface language as the reference. */
+html:not(.dark) .app-shell button:not(:disabled),
+html:not(.dark) .quiz-arena button:not(:disabled),
+html:not(.dark) .auth-page button:not(:disabled),
+html:not(.dark) .landing-page button:not(:disabled) {
+  box-shadow: 5px 5px 10px rgba(205, 210, 221, .8), -5px -5px 10px rgba(255, 255, 255, .9);
+}
+
+html:not(.dark) .app-shell button:not(:disabled):hover,
+html:not(.dark) .quiz-arena button:not(:disabled):hover,
+html:not(.dark) .auth-page button:not(:disabled):hover,
+html:not(.dark) .landing-page button:not(:disabled):hover {
+  box-shadow: 7px 7px 14px rgba(196, 201, 213, .85), -6px -6px 12px rgba(255, 255, 255, .95);
+}
+
+html:not(.dark) .app-shell button:not(:disabled):active,
+html:not(.dark) .quiz-arena button:not(:disabled):active,
+html:not(.dark) .auth-page button:not(:disabled):active,
+html:not(.dark) .landing-page button:not(:disabled):active {
+  box-shadow: inset 3px 3px 7px rgba(199, 204, 216, .85), inset -3px -3px 7px rgba(255, 255, 255, .9);
+}
+
+html.dark .app-shell button:not(:disabled),
+html.dark .quiz-arena button:not(:disabled),
+html.dark .auth-page button:not(:disabled),
+html.dark .landing-page button:not(:disabled) {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .35), -4px -4px 8px rgba(72, 76, 103, .16);
+}
+
+html.dark .app-shell button:not(:disabled):hover,
+html.dark .quiz-arena button:not(:disabled):hover,
+html.dark .auth-page button:not(:disabled):hover,
+html.dark .landing-page button:not(:disabled):hover {
+  box-shadow: 7px 7px 14px rgba(0, 0, 0, .42), -5px -5px 10px rgba(86, 88, 120, .2);
+}
+
+html.dark .app-shell button:not(:disabled):active,
+html.dark .quiz-arena button:not(:disabled):active,
+html.dark .auth-page button:not(:disabled):active,
+html.dark .landing-page button:not(:disabled):active {
+  box-shadow: inset 3px 3px 7px rgba(0, 0, 0, .42), inset -3px -3px 7px rgba(76, 79, 108, .18);
+}
+
+/* Text links get a tactile underline and a small color lift instead of a box. */
+.landing-page a:hover,
+.app-shell a:hover,
+.quiz-arena a:hover,
+.auth-page a:hover {
+  color: var(--primary-hover, var(--primary)) !important;
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.landing-nav-cta:hover,
+.landing-primary-button:hover,
+.auth-submit:hover:not(:disabled),
+.quiz-primary-button:hover:not(:disabled),
+.user-shell main .bg-blue-900:hover:not(:disabled),
+.user-shell main .bg-blue-600:hover:not(:disabled),
+.admin-shell main .bg-blue-900:hover:not(:disabled),
+.admin-shell main .bg-blue-600:hover:not(:disabled) {
+  filter: brightness(1.04) saturate(1.06);
+}
+
+.quiz-secondary-button:hover:not(:disabled),
+.quiz-flag-button:hover:not(:disabled),
+.admin-exit-button:hover,
+.question-toolbar-menu summary:hover {
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 35%, transparent);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  filter: saturate(.65);
+}
+
+/* Compact reference-style pills: soft surface, indigo label, no underlines. */
+.landing-page a,
+.app-shell a,
+.quiz-arena a,
+.auth-page a,
+.landing-page a:hover,
+.app-shell a:hover,
+.quiz-arena a:hover,
+.auth-page a:hover {
+  text-decoration: none !important;
+}
+
+.landing-nav-cta,
+.landing-primary-button,
+.auth-submit,
+.quiz-primary-button,
+.user-shell main .bg-blue-900,
+.user-shell main .bg-blue-600,
+.admin-shell main .bg-blue-900,
+.admin-shell main .bg-blue-600 {
+  align-items: center;
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: 6px 6px 12px rgba(199, 204, 216, .82), -6px -6px 12px rgba(255, 255, 255, .92) !important;
+  color: var(--primary) !important;
+  display: inline-flex;
+  font-weight: 800;
+  justify-content: center;
+  text-decoration: none !important;
+}
+
+.landing-nav-cta:hover,
+.landing-primary-button:hover,
+.auth-submit:hover:not(:disabled),
+.quiz-primary-button:hover:not(:disabled),
+.user-shell main .bg-blue-900:hover:not(:disabled),
+.user-shell main .bg-blue-600:hover:not(:disabled),
+.admin-shell main .bg-blue-900:hover:not(:disabled),
+.admin-shell main .bg-blue-600:hover:not(:disabled) {
+  background: var(--surface-subtle) !important;
+  box-shadow: 8px 8px 16px rgba(190, 196, 210, .9), -7px -7px 14px rgba(255, 255, 255, .98) !important;
+  color: var(--primary-hover) !important;
+  filter: none;
+  transform: translateY(-2px);
+}
+
+.landing-nav-cta:active,
+.landing-primary-button:active,
+.auth-submit:active:not(:disabled),
+.quiz-primary-button:active:not(:disabled),
+.user-shell main .bg-blue-900:active:not(:disabled),
+.user-shell main .bg-blue-600:active:not(:disabled),
+.admin-shell main .bg-blue-900:active:not(:disabled),
+.admin-shell main .bg-blue-600:active:not(:disabled) {
+  box-shadow: inset 3px 3px 7px rgba(199, 204, 216, .86), inset -3px -3px 7px rgba(255, 255, 255, .9) !important;
+  transform: translateY(0);
+}
+
+.landing-nav-cta span,
+.landing-primary-button span,
+.quiz-primary-button span {
+  color: inherit;
+  text-decoration: none;
+}
+
+html.dark .landing-nav-cta,
+html.dark .landing-primary-button,
+html.dark .auth-submit,
+html.dark .quiz-primary-button,
+html.dark .user-shell main .bg-blue-900,
+html.dark .user-shell main .bg-blue-600,
+html.dark .admin-shell main .bg-blue-900,
+html.dark .admin-shell main .bg-blue-600 {
+  background: var(--surface) !important;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, .38), -5px -5px 10px rgba(72, 76, 103, .18) !important;
+  color: var(--primary) !important;
+}
+
+/* Full application neumorphic surface layer. */
+.user-shell main,
+.admin-shell main {
+  color: var(--text-primary);
+}
+
+.user-shell main [class~="bg-white"],
+.user-shell main [class~="bg-gray-50"],
+.user-shell main [class~="bg-gray-100"],
+.admin-shell main [class~="bg-white"],
+.admin-shell main [class~="bg-gray-50"],
+.admin-shell main [class~="bg-gray-100"],
+.quiz-arena .quiz-frame,
+.quiz-arena .quiz-navigator-panel,
+.quiz-arena .quiz-dialog {
+  background: var(--surface) !important;
+  border: 0 !important;
+  box-shadow: 9px 10px 20px rgba(199, 204, 216, .78), -8px -8px 18px rgba(255, 255, 255, .9) !important;
+}
+
+.user-shell main [class~="border-gray-200"],
+.user-shell main [class~="border-gray-300"],
+.admin-shell main [class~="border-gray-200"],
+.admin-shell main [class~="border-gray-300"] {
+  border-color: transparent !important;
+}
+
+.user-shell main [class~="shadow-sm"],
+.user-shell main [class~="shadow-md"],
+.user-shell main [class~="shadow-lg"],
+.admin-shell main [class~="shadow-sm"],
+.admin-shell main [class~="shadow-md"],
+.admin-shell main [class~="shadow-lg"] {
+  box-shadow: 9px 10px 20px rgba(199, 204, 216, .78), -8px -8px 18px rgba(255, 255, 255, .9) !important;
+}
+
+.user-shell main input,
+.user-shell main textarea,
+.user-shell main select,
+.admin-shell main input,
+.admin-shell main textarea,
+.admin-shell main select,
+.auth-page input,
+.auth-page textarea,
+.auth-page select {
+  background: var(--surface-subtle) !important;
+  border: 0 !important;
+  border-radius: .8rem !important;
+  box-shadow: inset 4px 4px 8px rgba(205, 210, 221, .82), inset -4px -4px 8px rgba(255, 255, 255, .92) !important;
+  color: var(--text-primary) !important;
+}
+
+.user-shell main input:focus,
+.user-shell main textarea:focus,
+.user-shell main select:focus,
+.admin-shell main input:focus,
+.admin-shell main textarea:focus,
+.admin-shell main select:focus,
+.auth-page input:focus,
+.auth-page textarea:focus,
+.auth-page select:focus {
+  box-shadow: inset 3px 3px 7px rgba(205, 210, 221, .86), inset -3px -3px 7px rgba(255, 255, 255, .95), 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent) !important;
+}
+
+.user-shell main button:not(:disabled),
+.admin-shell main button:not(:disabled),
+.quiz-arena button:not(:disabled),
+.auth-page button:not(:disabled) {
+  border-radius: .8rem;
+}
+
+.user-shell main button:not(:disabled):not(.quiz-primary-button):not(.quiz-danger-button),
+.admin-shell main button:not(:disabled):not(.quiz-primary-button):not(.quiz-danger-button),
+.quiz-arena .quiz-secondary-button:not(:disabled),
+.quiz-arena .quiz-flag-button:not(:disabled),
+.auth-page button:not(:disabled):not(.auth-submit) {
+  background: var(--surface) !important;
+  border: 0 !important;
+  box-shadow: 5px 5px 10px rgba(205, 210, 221, .8), -5px -5px 10px rgba(255, 255, 255, .9) !important;
+  color: var(--text-secondary);
+}
+
+.user-shell main button:not(:disabled):hover,
+.admin-shell main button:not(:disabled):hover,
+.quiz-arena .quiz-secondary-button:not(:disabled):hover,
+.quiz-arena .quiz-flag-button:not(:disabled):hover,
+.auth-page button:not(:disabled):hover {
+  box-shadow: 7px 7px 14px rgba(196, 201, 213, .86), -6px -6px 12px rgba(255, 255, 255, .96) !important;
+  transform: translateY(-2px);
+}
+
+.user-shell main button:not(:disabled):active,
+.admin-shell main button:not(:disabled):active,
+.quiz-arena .quiz-secondary-button:not(:disabled):active,
+.quiz-arena .quiz-flag-button:not(:disabled):active,
+.auth-page button:not(:disabled):active {
+  box-shadow: inset 3px 3px 7px rgba(199, 204, 216, .84), inset -3px -3px 7px rgba(255, 255, 255, .92) !important;
+  transform: translateY(0);
+}
+
+.user-shell main [class~="bg-gray-50"],
+.user-shell main [class~="bg-blue-50"],
+.user-shell main [class~="bg-emerald-50"],
+.user-shell main [class~="bg-amber-50"],
+.user-shell main [class~="bg-orange-50"],
+.admin-shell main [class~="bg-gray-50"],
+.admin-shell main [class~="bg-blue-50"],
+.admin-shell main [class~="bg-emerald-50"],
+.admin-shell main [class~="bg-amber-50"],
+.admin-shell main [class~="bg-orange-50"] {
+  box-shadow: inset 3px 3px 7px rgba(205, 210, 221, .58), inset -3px -3px 7px rgba(255, 255, 255, .8) !important;
+}
+
+.user-shell main table,
+.admin-shell main table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.user-shell main th,
+.admin-shell main th {
+  color: var(--text-secondary);
+  font-weight: 800;
+}
+
+.admin-attempt-chart,
+.admin-attempt-chart > div,
+.admin-attempt-chart > span {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.admin-attempt-chart {
+  min-height: 14rem;
+}
+
+.admin-attempt-bar {
+  background: var(--primary) !important;
+  border-radius: .45rem .45rem 0 0 !important;
+  box-shadow: none !important;
+  min-height: .35rem;
+}
+
+/* Assessment cards keep their normal content layout instead of the global pill treatment. */
+.admin-assessment-card .admin-card-content {
+  appearance: none !important;
+  align-items: initial;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--text-primary) !important;
+  cursor: pointer;
+  display: block;
+  min-height: 7rem;
+  padding: 0 !important;
+  text-align: left;
+  text-decoration: none !important;
+  transform: none !important;
+  width: 100%;
+}
+
+.admin-assessment-card .admin-card-content:hover {
+  background: #eeecff !important;
+  border-radius: .9rem !important;
+  box-shadow: inset 4px 4px 9px rgba(207, 204, 232, .78), inset -4px -4px 9px rgba(255, 255, 255, .9) !important;
+  color: var(--text-primary) !important;
+  padding: .7rem !important;
+  transform: none;
+}
+
+.admin-shell main .admin-assessment-card button.admin-card-content,
+.admin-shell main .admin-assessment-card button.admin-card-content:active {
+  appearance: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  min-height: 7rem !important;
+  outline: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+
+.admin-shell main .admin-assessment-card button.admin-card-content:hover {
+  background: #eeecff !important;
+  border: 0 !important;
+  border-radius: .9rem !important;
+  box-shadow: inset 4px 4px 9px rgba(207, 204, 232, .78), inset -4px -4px 9px rgba(255, 255, 255, .9) !important;
+  padding: .7rem !important;
+  transform: none !important;
+}
+
+.admin-assessment-card {
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-radius: 1.2rem !important;
+  box-shadow: 0 12px 24px rgba(39, 48, 69, .12) !important;
+  transform: none !important;
+}
+
+.admin-assessment-card:hover {
+  border: 0 !important;
+  box-shadow: 0 16px 30px rgba(39, 48, 69, .16) !important;
+  transform: translateY(-2px) !important;
+}
+
+.admin-assessment-card .admin-difficulty-badge {
+  background: #fff0d3 !important;
+  border-radius: 999px !important;
+  color: #b45309 !important;
+  padding: .55rem .85rem !important;
+}
+
+.admin-assessment-card > div:first-child > button {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  color: var(--text-muted) !important;
+  min-height: initial;
+  padding: .45rem !important;
+  transform: none !important;
+}
+
+.admin-assessment-card > div:first-child > button:hover {
+  background: var(--surface-subtle) !important;
+  box-shadow: none !important;
+  color: var(--primary) !important;
+  transform: none !important;
+}
+
+.admin-assessment-card > div.absolute {
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-radius: .75rem !important;
+  box-shadow: 0 10px 22px rgba(39, 48, 69, .16) !important;
+  min-height: initial;
+  padding: .25rem !important;
+}
+
+.admin-assessment-card > div.absolute button {
+  align-items: initial;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: .5rem !important;
+  box-shadow: none !important;
+  display: block;
+  min-height: initial;
+  padding: .55rem .7rem !important;
+  transform: none !important;
+}
+
+.admin-assessment-card > div.absolute button:hover {
+  background: var(--surface-subtle) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.admin-assessment-card > div.absolute button.text-red-600:hover {
+  background: #fff0f0 !important;
+  color: #dc2626 !important;
+}
+
+html.dark .user-shell main [class~="bg-white"],
+html.dark .user-shell main [class~="bg-gray-50"],
+html.dark .user-shell main [class~="bg-gray-100"],
+html.dark .admin-shell main [class~="bg-white"],
+html.dark .admin-shell main [class~="bg-gray-50"],
+html.dark .admin-shell main [class~="bg-gray-100"],
+html.dark .quiz-arena .quiz-frame,
+html.dark .quiz-arena .quiz-navigator-panel,
+html.dark .quiz-arena .quiz-dialog {
+  background: var(--surface) !important;
+  box-shadow: 9px 10px 20px rgba(0, 0, 0, .38), -5px -5px 12px rgba(72, 76, 103, .18) !important;
+}
+
+html.dark .user-shell main input,
+html.dark .user-shell main textarea,
+html.dark .user-shell main select,
+html.dark .admin-shell main input,
+html.dark .admin-shell main textarea,
+html.dark .admin-shell main select,
+html.dark .auth-page input,
+html.dark .auth-page textarea,
+html.dark .auth-page select {
+  background: var(--surface-subtle) !important;
+  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, .36), inset -4px -4px 8px rgba(76, 79, 108, .18) !important;
+}
+
+html.dark .user-shell main button:not(:disabled),
+html.dark .admin-shell main button:not(:disabled),
+html.dark .quiz-arena .quiz-secondary-button:not(:disabled),
+html.dark .quiz-arena .quiz-flag-button:not(:disabled),
+html.dark .auth-page button:not(:disabled) {
+  background: var(--surface) !important;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .35), -4px -4px 8px rgba(72, 76, 103, .16) !important;
+  color: var(--text-secondary);
+}
+
+/* Header and navigation controls use the same soft treatment as content controls. */
+.landing-page button:not(:disabled),
+.app-shell header button:not(:disabled),
+.app-shell header a,
+.app-mobile-nav a,
+.auth-page button:not(:disabled),
+.quiz-arena header button:not(:disabled) {
+  border-radius: 999px;
+  text-decoration: none !important;
+}
+
+.landing-links a,
+.app-nav-link,
+.admin-nav-link,
+.app-logout,
+.app-menu,
+.quiz-back {
+  border-radius: 999px;
+  text-decoration: none !important;
+  transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.landing-links a:hover,
+.app-nav-link:hover,
+.admin-nav-link:hover,
+.admin-nav-link-active,
+.app-logout:hover,
+.app-menu:hover,
+.quiz-back:hover {
+  background: var(--surface) !important;
+  box-shadow: 5px 5px 10px rgba(205, 210, 221, .78), -5px -5px 10px rgba(255, 255, 255, .9) !important;
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
+}
+
+.landing-links a:active,
+.app-nav-link:active,
+.admin-nav-link:active,
+.app-logout:active,
+.app-menu:active,
+.quiz-back:active {
+  box-shadow: inset 3px 3px 7px rgba(199, 204, 216, .82), inset -3px -3px 7px rgba(255, 255, 255, .9) !important;
+  transform: translateY(0);
+}
+
+html.dark .landing-links a:hover,
+html.dark .app-nav-link:hover,
+html.dark .admin-nav-link:hover,
+html.dark .admin-nav-link-active,
+html.dark .app-logout:hover,
+html.dark .app-menu:hover,
+html.dark .quiz-back:hover {
+  background: var(--surface) !important;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .35), -4px -4px 8px rgba(72, 76, 103, .16) !important;
+  color: var(--primary) !important;
+}
+
+.landing-page button:not(:disabled),
+.app-shell header button:not(:disabled),
+.auth-page button:not(:disabled),
+.quiz-arena header button:not(:disabled) {
+  box-shadow: 5px 5px 10px rgba(205, 210, 221, .78), -5px -5px 10px rgba(255, 255, 255, .9);
+}
+
+.landing-page button:not(:disabled):hover,
+.app-shell header button:not(:disabled):hover,
+.auth-page button:not(:disabled):hover,
+.quiz-arena header button:not(:disabled):hover {
+  box-shadow: 7px 7px 14px rgba(196, 201, 213, .86), -6px -6px 12px rgba(255, 255, 255, .96);
+}
+
+/* Reference control language: every actionable button/link is a soft white pill. */
+.landing-page button:not(:disabled),
+.landing-page a:not(.landing-brand),
+.app-shell button:not(:disabled),
+.app-shell a:not(.app-brand),
+.quiz-arena button:not(:disabled),
+.quiz-arena a,
+.auth-page button:not(:disabled),
+.auth-page a:not(.auth-brand),
+.admin-shell summary,
+.admin-shell main a {
+  align-items: center;
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: 6px 6px 12px rgba(199, 204, 216, .78), -6px -6px 12px rgba(255, 255, 255, .92) !important;
+  color: var(--primary) !important;
+  text-decoration: none !important;
+}
+
+.landing-page button:not(:disabled),
+.landing-page a:not(.landing-brand),
+.app-shell button:not(:disabled),
+.app-shell a:not(.app-brand),
+.quiz-arena button:not(:disabled),
+.quiz-arena a,
+.auth-page button:not(:disabled),
+.auth-page a:not(.auth-brand),
+.admin-shell summary,
+.admin-shell main a {
+  min-height: 2.5rem;
+  padding: .6rem 1rem;
+}
+
+.landing-page button:not(:disabled):hover,
+.landing-page a:not(.landing-brand):hover,
+.app-shell button:not(:disabled):hover,
+.app-shell a:not(.app-brand):hover,
+.quiz-arena button:not(:disabled):hover,
+.quiz-arena a:hover,
+.auth-page button:not(:disabled):hover,
+.auth-page a:not(.auth-brand):hover,
+.admin-shell summary:hover,
+.admin-shell main a:hover {
+  background: var(--surface-subtle) !important;
+  box-shadow: 8px 8px 16px rgba(190, 196, 210, .88), -7px -7px 14px rgba(255, 255, 255, .98) !important;
+  color: var(--primary-hover) !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
+}
+
+.landing-page button:not(:disabled):active,
+.landing-page a:not(.landing-brand):active,
+.app-shell button:not(:disabled):active,
+.app-shell a:not(.app-brand):active,
+.quiz-arena button:not(:disabled):active,
+.quiz-arena a:active,
+.auth-page button:not(:disabled):active,
+.auth-page a:not(.auth-brand):active,
+.admin-shell summary:active,
+.admin-shell main a:active {
+  box-shadow: inset 3px 3px 7px rgba(199, 204, 216, .84), inset -3px -3px 7px rgba(255, 255, 255, .92) !important;
+  transform: translateY(0);
+}
+
+/* Preserve controls that are not buttons or links. */
+input,
+textarea,
+select,
+input[type="checkbox"],
+input[type="radio"],
+.landing-brand,
+.app-brand,
+.auth-brand {
+  border-radius: initial;
+  min-height: initial;
+  padding: initial;
+}
+
+html.dark .landing-page button:not(:disabled),
+html.dark .landing-page a:not(.landing-brand),
+html.dark .app-shell button:not(:disabled),
+html.dark .app-shell a:not(.app-brand),
+html.dark .quiz-arena button:not(:disabled),
+html.dark .quiz-arena a,
+html.dark .auth-page button:not(:disabled),
+html.dark .auth-page a:not(.auth-brand),
+html.dark .admin-shell summary,
+html.dark .admin-shell main a {
+  background: var(--surface) !important;
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, .38), -5px -5px 10px rgba(72, 76, 103, .18) !important;
+  color: var(--primary) !important;
+}
+
+/* Assessment navigator: compact five-column circular controls. */
+.quiz-attempt-layout {
+  grid-template-columns: minmax(18rem, 20rem) minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.quiz-navigator-panel {
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-radius: 1.35rem !important;
+  box-shadow: 9px 10px 20px rgba(199, 204, 216, .78), -8px -8px 18px rgba(255, 255, 255, .9) !important;
+  padding: 1.15rem !important;
+}
+
+.quiz-navigator-heading {
+  color: var(--text-primary) !important;
+  font-size: 1rem !important;
+}
+
+.quiz-navigator-heading strong {
+  color: var(--primary) !important;
+  font-size: .9rem !important;
+}
+
+.quiz-navigator-help {
+  color: var(--text-secondary) !important;
+  font-size: .8rem !important;
+  margin-bottom: 1.15rem !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: .65rem !important;
+  margin: 0 !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav button,
+.quiz-navigator-panel .quiz-number-nav button:hover,
+.quiz-navigator-panel .quiz-number-nav button:active {
+  align-items: center !important;
+  aspect-ratio: 1 !important;
+  background: var(--surface) !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: 6px 7px 12px rgba(199, 204, 216, .78), -5px -5px 10px rgba(255, 255, 255, .92) !important;
+  color: var(--primary) !important;
+  display: flex !important;
+  font-size: .85rem !important;
+  height: auto !important;
+  justify-content: center !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  transform: none !important;
+  width: auto !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav button:hover {
+  box-shadow: 8px 9px 15px rgba(190, 196, 210, .86), -6px -6px 12px rgba(255, 255, 255, .96) !important;
+  transform: translateY(-2px) !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav button:active {
+  box-shadow: inset 3px 3px 7px rgba(199, 204, 216, .84), inset -3px -3px 7px rgba(255, 255, 255, .92) !important;
+  transform: translateY(0) !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav button.is-current {
+  background: #fff0f4 !important;
+  box-shadow: inset 4px 4px 8px #e7c9d0, inset -4px -4px 8px #fff !important;
+  color: #ff6287 !important;
+  font-size: 1rem !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav button.is-answered {
+  background: #e0f8f0 !important;
+  box-shadow: inset 3px 3px 7px #c3e2d7, inset -3px -3px 7px #fff !important;
+  color: #159b7b !important;
+}
+
+.quiz-navigator-panel .quiz-number-nav button.is-flagged {
+  box-shadow: inset 0 0 0 2px #f2b411, 6px 7px 12px rgba(199, 204, 216, .78), -5px -5px 10px rgba(255, 255, 255, .92) !important;
+}
+
+.quiz-nav-flag {
+  color: #f2b411;
+  font-size: .72rem;
+  line-height: 1;
+  margin-right: .1rem;
+}
+
+.quiz-navigator-legend {
+  border-top: 1px solid var(--border) !important;
+  gap: .7rem !important;
+  margin-top: 1.2rem !important;
+  padding-top: 1rem !important;
+}
+
+.quiz-navigator-legend span {
+  color: var(--text-secondary) !important;
+  font-size: .76rem !important;
+}
+
+.quiz-navigator-legend i {
+  box-shadow: none !important;
+  height: .75rem !important;
+  width: .75rem !important;
+}
+
+.quiz-flag-count {
+  color: #b45309 !important;
+  font-size: .76rem !important;
+  margin-top: .9rem !important;
+}
+
+html.dark .quiz-navigator-panel .quiz-number-nav button {
+  background: var(--surface) !important;
+  box-shadow: 6px 7px 12px rgba(0, 0, 0, .38), -5px -5px 10px rgba(72, 76, 103, .18) !important;
+}
+
+@media (max-width: 700px) {
+  .quiz-attempt-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quiz-navigator-panel {
+    width: 100%;
+  }
+
+  .quiz-navigator-panel .quiz-number-nav {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    overflow: visible !important;
+  }
+}

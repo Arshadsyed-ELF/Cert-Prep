@@ -60,9 +60,9 @@ const Login = () => {
                 <p className="auth-footer text-center mt-3 text-sm">
                     Need an account? <Link to="/signup">Create one</Link>
                 </p>
-                <p className="auth-footer mt-3 text-center text-sm">
+                {/* <p className="auth-footer mt-3 text-center text-sm">
                     <Link to="/admin/login">Admin sign in</Link>
-                </p>
+                </p> */}
             </form>
         </div>
     );
