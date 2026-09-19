@@ -8,13 +8,11 @@ const getReadinessLabel = (score) => {
     return 'Not Ready';
 };
 
-const calculateReadinessScore = async (userId) => {
-    const attempts = await QuizAttempt.find({ userId }).populate('quizId');
-
+const summarizeAttempts = (attempts, message = 'Start your first quiz to calculate readiness.') => {
     if (!attempts || attempts.length === 0) {
         return {
             readiness: 'Not Assessed',
-            message: 'Start your first quiz to calculate readiness.',
+            message,
             score: 0,
             attempts: 0,
             averageScore: 0,
@@ -25,7 +23,7 @@ const calculateReadinessScore = async (userId) => {
 
     const totalAttempts = attempts.length;
     const averageScore = attempts.reduce((sum, attempt) => sum + (attempt.percentage || 0), 0) / totalAttempts;
-    const recentScore = attempts[totalAttempts - 1].percentage || 0;
+    const recentScore = attempts[0].percentage || 0;
     const bestScore = Math.max(...attempts.map((attempt) => attempt.percentage || 0));
     const combinedScore = (averageScore * 0.5) + (recentScore * 0.3) + (bestScore * 0.2);
 
@@ -39,8 +37,13 @@ const calculateReadinessScore = async (userId) => {
     };
 };
 
+const calculateReadinessScore = async (userId) => {
+    const attempts = await QuizAttempt.find({ userId }).sort({ createdAt: -1 }).populate('quizId');
+    return summarizeAttempts(attempts);
+};
+
 const calculateReadinessByCertification = async (userId, certificationType) => {
-    const attempts = await QuizAttempt.find({ userId }).populate('quizId');
+    const attempts = await QuizAttempt.find({ userId }).sort({ createdAt: -1 }).populate('quizId');
     const filteredAttempts = attempts.filter((attempt) => {
         return attempt.quizId && attempt.quizId.certificationType && attempt.quizId.certificationType.toLowerCase() === String(certificationType).toLowerCase();
     });
@@ -57,7 +60,7 @@ const calculateReadinessByCertification = async (userId, certificationType) => {
 
     const totalAttempts = filteredAttempts.length;
     const averageScore = filteredAttempts.reduce((sum, attempt) => sum + (attempt.percentage || 0), 0) / totalAttempts;
-    const recentScore = filteredAttempts[totalAttempts - 1].percentage || 0;
+    const recentScore = filteredAttempts[0].percentage || 0;
     const bestScore = Math.max(...filteredAttempts.map((attempt) => attempt.percentage || 0));
     const combinedScore = (averageScore * 0.5) + (recentScore * 0.3) + (bestScore * 0.2);
 
@@ -75,4 +78,5 @@ const calculateReadinessByCertification = async (userId, certificationType) => {
 module.exports = {
     calculateReadinessScore,
     calculateReadinessByCertification,
+    summarizeAttempts,
 };

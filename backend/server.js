@@ -6,11 +6,11 @@ const quizRoutes = require('./routes/quizRoutes');
 const attemptRoutes = require('./routes/attemptRoutes');
 const readinessRoutes = require('./routes/readinessRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const errorMiddleware = require('./middleware/errorMiddleware');
+const errorMiddleware = require('./middleware/errorMiddleware');  
 const cors = require('cors');
 
 
-dotenv.config();
+dotenv.config(); 
 
 const app = express();
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminUserReadinessPage from './pages/AdminUserReadinessPage';
 import AdminLogin from './pages/AdminLogin';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -29,6 +30,7 @@ const App = () => {
           <ProtectedRoute exact path="/admin" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
           <ProtectedRoute exact path="/admin/overview" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
           <ProtectedRoute exact path="/admin/assessments" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
+          <ProtectedRoute exact path="/admin/users/:id/readiness" component={AdminUserReadinessPage} adminOnly={true} layout={AdminLayout} />
           <ProtectedRoute exact path="/admin/users" component={AdminDashboard} adminOnly={true} layout={AdminLayout} />
           <Route path="/admin/login" component={AdminLogin} />
           <Route path="/login" component={Login} />

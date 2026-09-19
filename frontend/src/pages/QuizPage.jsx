@@ -28,9 +28,41 @@ const QuizPage = () => {
     const [showReviewDialog, setShowReviewDialog] = useState(false);
     const [tabSwitchWarning, setTabSwitchWarning] = useState('');
     const [timeWarning, setTimeWarning] = useState('');
+    const [isFullscreen, setIsFullscreen] = useState(false);
     const tabSwitchCountRef = useRef(0);
     const timeWarningsRef = useRef({ half: false, ten: false });
     const submissionStartedRef = useRef(false);
+    const fullscreenExitCountRef = useRef(0);
+    const intentionalFullscreenExitRef = useRef(false);
+
+    const enterFullscreen = async () => {
+        if (document.fullscreenElement) {
+            setIsFullscreen(true);
+            return true;
+        }
+        if (!document.documentElement.requestFullscreen) {
+            toast.warn('Fullscreen mode is unavailable in this browser.');
+            return false;
+        }
+        try {
+            await document.documentElement.requestFullscreen();
+            setIsFullscreen(true);
+            return true;
+        } catch (fullscreenError) {
+            console.warn('Unable to enter fullscreen mode:', fullscreenError);
+            toast.warn('Fullscreen mode is unavailable in this browser.');
+            return false;
+        }
+    };
+
+    const exitFullscreen = () => {
+        if (document.fullscreenElement && document.exitFullscreen) {
+            intentionalFullscreenExitRef.current = true;
+            document.exitFullscreen().catch(() => {});
+        }
+    };
+
+    useEffect(() => () => exitFullscreen(), []);
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -113,6 +145,7 @@ const QuizPage = () => {
         try {
             const payload = quiz.questions.map((question, index) => ({ questionId: question._id, selectedAnswer: userAnswers[index] || (question.questionType === 'MAQ' ? [] : '') }));
             const result = await attemptService.submitAttempt(id, payload);
+            exitFullscreen();
             toast.success('Assessment submitted successfully.');
             history.replace(`/results/${result.attemptId}`, { score: result.score || 0, totalQuestions: result.totalQuestions || quiz.questions.length, passed: result.passed, percentage: result.percentage });
         } catch (submitError) {
@@ -128,6 +161,31 @@ const QuizPage = () => {
         submitQuiz();
         return undefined;
     }, [remainingSeconds, quiz, assessmentStarted, submitting]);
+
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            const currentlyFullscreen = Boolean(document.fullscreenElement);
+            setIsFullscreen(currentlyFullscreen);
+
+            if (currentlyFullscreen || !assessmentStarted || submitting || submissionStartedRef.current) return;
+            if (intentionalFullscreenExitRef.current) {
+                intentionalFullscreenExitRef.current = false;
+                return;
+            }
+
+            fullscreenExitCountRef.current += 1;
+            if (fullscreenExitCountRef.current > 3) {
+                toast.error('You exited fullscreen too many times. Your assessment is being submitted.');
+                submitQuiz();
+                return;
+            }
+
+            toast.warn(`Reminder ${fullscreenExitCountRef.current} of 3: please return to fullscreen mode.`);
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, [assessmentStarted, submitting]);
 
     useEffect(() => {
         const handleVisibilityChange = () => {
@@ -149,7 +207,12 @@ const QuizPage = () => {
 
     const unansweredCount = quiz ? quiz.questions.length - answeredCount : 0;
     const requestSubmit = () => setShowReviewDialog(true);
-    const startAssessment = () => {
+    const exitAssessment = () => {
+        exitFullscreen();
+        history.goBack();
+    };
+    const startAssessment = async () => {
+        await enterFullscreen();
         setAssessmentStarted(true);
         toast.info('Assessment started. Good luck!');
     };
@@ -159,7 +222,7 @@ const QuizPage = () => {
 
     return (
         <div className="quiz-arena min-h-screen pb-24">
-            <header className="quiz-arena-header"><div className="quiz-arena-brand"><button type="button" onClick={() => setShowExitDialog(true)} className="quiz-back" aria-label="Exit quiz">←</button><div><h1>Back to Assessments</h1></div></div><div className="quiz-question-pill"><span /> Question {currentQuestionIndex + 1} <b>of {quiz.questions.length}</b></div></header>
+            <header className="quiz-arena-header"><div className="quiz-arena-brand"><button type="button" onClick={() => setShowExitDialog(true)} className="quiz-back" aria-label="Exit quiz">←</button><div><h1>Back to Assessments</h1></div></div><div className="quiz-question-meta-actions">{assessmentStarted && !isFullscreen && !submitting && <button type="button" onClick={enterFullscreen} className="quiz-flag-button">Enter fullscreen</button>}<div className="quiz-question-pill"><span /> Question {currentQuestionIndex + 1} <b>of {quiz.questions.length}</b></div></div></header>
 
             <div className="quiz-attempt-layout">
                 <aside className="quiz-navigator-panel" aria-label="Question navigator">
@@ -183,7 +246,7 @@ const QuizPage = () => {
             </main>
             </div>
 
-            {showExitDialog && <div className="quiz-dialog-backdrop"><div className="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="exit-dialog-title"><h2 id="exit-dialog-title">Leave this assessment?</h2><p>Your answers will not be submitted if you leave now.</p><div><button type="button" onClick={() => setShowExitDialog(false)} className="quiz-secondary-button">Keep working</button><button type="button" onClick={() => history.goBack()} className="quiz-danger-button">Exit assessment</button></div></div></div>} 
+            {showExitDialog && <div className="quiz-dialog-backdrop"><div className="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="exit-dialog-title"><h2 id="exit-dialog-title">Leave this assessment?</h2><p>Your answers will not be submitted if you leave now.</p><div><button type="button" onClick={() => setShowExitDialog(false)} className="quiz-secondary-button">Keep working</button><button type="button" onClick={exitAssessment} className="quiz-danger-button">Exit assessment</button></div></div></div>} 
                     {!assessmentStarted && (
                         <div className="quiz-dialog-backdrop">
                             <div className="quiz-dialog" role="dialog" aria-modal="true" aria-labelledby="guidelines-dialog-title">
